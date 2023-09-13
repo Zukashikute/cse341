@@ -1,2 +1,2 @@
 # cse341
-CSE 341 Web Services
+CSE-341 Web Services
