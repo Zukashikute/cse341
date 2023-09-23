@@ -1,8 +1,8 @@
 const dotenv = require("dotenv");
-dotenv.config()
+dotenv.config();
 const { MongoClient } = require('mongodb');
 
-const mongoURL = `${process.env.MONGO_URL}`;
+const mongoURL = process.env.MONGO_URL;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(mongoURL);
