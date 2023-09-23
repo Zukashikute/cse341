@@ -6,9 +6,8 @@ const getAll = async (req, res, next) => {
       const result = await mongodb.getDb().db('webservices').collection('contacts').find();
       result.toArray().then((lists) => {
          res.setHeader('Content-Type', 'application/json');
-         res.status(200).json(lists); // we just need the first one (the only one)
+         res.status(200).json(lists);
       });
-      console.log(result);
    } catch {
       console.log("Error on getting all contacts", err)
    }
@@ -17,15 +16,20 @@ const getAll = async (req, res, next) => {
 
 const getSingle = async (req, res, next) => {
    const userId = new ObjectId(req.params.id)
-   const result = await mongodb
-      .getDb()
-      .db('webservices')
-      .collection('contacts')
-      .find({ _id: userId });
-   result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists[0]);
-   });
+   try {
+      const result = await mongodb
+         .getDb()
+         .db('webservices')
+         .collection('contacts')
+         .find({ _id: userId });
+      result.toArray().then((lists) => {
+         res.setHeader('Content-Type', 'application/json');
+         res.status(200).json(lists[0]);
+      });
+   }
+   catch (err) {
+      console.log("Error on getting a single contact", err)
+   }
 };
 
 module.exports = { getAll, getSingle };
