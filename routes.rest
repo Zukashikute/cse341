@@ -1,0 +1,23 @@
+### Get all contact list (Local)
+GET http://localhost:3000/contacts
+
+### Get contact list for Ira (Local)
+GET http://localhost:3000/contacts/650784ca4e8462de15df9183
+
+### Get contact list for John (Local)
+GET http://localhost:3000/contacts/650786e14e8462de15df9184
+
+### Get contact list for Lucy (Local)
+GET http://localhost:3000/contacts/650787324e8462de15df9185
+
+### Get all contact list (Render)
+https://cse341-yxee.onrender.com/contacts
+
+### Get contact list for Ira (Render)
+https://cse341-yxee.onrender.com/contacts/650784ca4e8462de15df9183
+
+### Get contact list for John (Render)
+https://cse341-yxee.onrender.com/contacts/650786e14e8462de15df9184
+
+### Get contact list for Lucy (Render)
+https://cse341-yxee.onrender.com/contacts/650787324e8462de15df9185
