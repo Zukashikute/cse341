@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
 const mongodb = require('../db/connect');
 
+// GET Request Controllers (Read)
 const getAll = async (req, res, next) => {
    try {
       const result = await mongodb.getDb().db().collection('contacts').find();
@@ -32,4 +33,60 @@ const getSingle = async (req, res, next) => {
    }
 };
 
-module.exports = { getAll, getSingle };
+// POST Request Controllers (Create)
+const createContact = async (req, res) => {
+   const contact = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday,
+   };
+
+   const response = await mongodb
+      .getDb()
+      .db()
+      .collection('contacts')
+      .insertOne(contact);
+
+   if (response.acknowledged) {
+      return res.status(201).json(response);
+   } else {
+      return res.status(500).json(response.error || 'Error occurred while creating the contact.');
+   }
+}
+
+// PUT Request Controllers (Update)
+const updateContact = async (req, res) => {
+   const userId = new ObjectId(req.params.id)
+   const contact = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday,
+   }
+
+   const response = await mongodb.getDb().db().collection('contacts').replaceOne({ _id: userId }, contact);
+
+   if (response.modifiedCount > 0) {
+      return res.status(204).send();
+   } else {
+      return res.status(500).json(response.error || 'Some error occurred while updating the contact.');
+   }
+}
+
+// DELETE Request Controllers (Delete)
+const deleteContact = async (req, res) => {
+   const userId = new ObjectId(req.params.id)
+
+   const response = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: userId }, true);
+
+   if (response.deletedCount > 0) {
+      return res.status(200).send();
+   } else {
+      return res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+   }
+}
+
+module.exports = { createContact, getAll, getSingle, updateContact, deleteContact };
