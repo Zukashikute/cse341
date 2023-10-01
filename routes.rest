@@ -36,3 +36,30 @@ GET https://cse341-yxee.onrender.com/contacts
 
 ### Get contact list for Lucy (Render)
 GET https://cse341-yxee.onrender.com/contacts/650787324e8462de15df9185
+
+### Create contact (Render)
+POST http://cse341-yxee.onrender.com/contacts HTTP/1.1
+Content-Type: application/json
+
+{
+   "firstName": "Red",
+   "lastName": "Bala",
+   "email": "red@sample.com",
+   "favoriteColor": "red",
+   "birthday": "06/19/1996"
+}
+
+### Update contact (Local)
+PUT http://cse341-yxee.onrender.com/contacts/6518ecafd8457e69399bc392 HTTP/1.1
+Content-Type: application/json
+
+{
+   "firstName": "Red",
+   "lastName": "Bala",
+   "email": "red@sample.com",
+   "favoriteColor": "Blue",
+   "birthday": "06/19/1996"
+}
+
+### Delete contact (Local)
+DELETE http://cse341-yxee.onrender.com/contacts/6518ecafd8457e69399bc392
