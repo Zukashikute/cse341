@@ -42,24 +42,24 @@ POST http://cse341-yxee.onrender.com/contacts HTTP/1.1
 Content-Type: application/json
 
 {
-   "firstName": "Red",
+   "firstName": "Lian",
    "lastName": "Bala",
-   "email": "red@sample.com",
-   "favoriteColor": "red",
-   "birthday": "06/19/1996"
+   "email": "lian@sample.com",
+   "favoriteColor": "Gray",
+   "birthday": "12/04/2023"
 }
 
-### Update contact (Local)
+### Update contact (Render)
 PUT http://cse341-yxee.onrender.com/contacts/6518ecafd8457e69399bc392 HTTP/1.1
 Content-Type: application/json
 
 {
-   "firstName": "Red",
+   "firstName": "Lian",
    "lastName": "Bala",
-   "email": "red@sample.com",
-   "favoriteColor": "Blue",
-   "birthday": "06/19/1996"
+   "email": "lian@sample.com",
+   "favoriteColor": "Black",
+   "birthday": "12/04/2023"
 }
 
-### Delete contact (Local)
+### Delete contact (Render)
 DELETE http://cse341-yxee.onrender.com/contacts/6518ecafd8457e69399bc392
