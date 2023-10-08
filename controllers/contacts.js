@@ -2,7 +2,9 @@ const { ObjectId } = require('mongodb');
 const mongodb = require('../db/connect');
 
 // GET Request Controllers (Read)
+
 const getAll = async (req, res, next) => {
+   // #swagger.description = 'Getting all contacts from our database'
    try {
       const result = await mongodb.getDb().db().collection('contacts').find();
       result.toArray().then((lists) => {
@@ -16,6 +18,7 @@ const getAll = async (req, res, next) => {
 };
 
 const getSingle = async (req, res, next) => {
+   // #swagger.description = 'Getting a single contact from our database using id'
    const userId = new ObjectId(req.params.id)
    try {
       const result = await mongodb
@@ -35,6 +38,7 @@ const getSingle = async (req, res, next) => {
 
 // POST Request Controllers (Create)
 const createContact = async (req, res) => {
+   // #swagger.description = 'Creating a single contact to our database'
    const contact = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -58,6 +62,7 @@ const createContact = async (req, res) => {
 
 // PUT Request Controllers (Update)
 const updateContact = async (req, res) => {
+   // #swagger.description = 'Updating a single contact to our database'
    const userId = new ObjectId(req.params.id)
    const contact = {
       firstName: req.body.firstName,
@@ -78,6 +83,7 @@ const updateContact = async (req, res) => {
 
 // DELETE Request Controllers (Delete)
 const deleteContact = async (req, res) => {
+   // #swagger.description = 'Deleting a single contact to our database'
    const userId = new ObjectId(req.params.id)
 
    const response = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: userId }, true);
