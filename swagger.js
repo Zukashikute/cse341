@@ -6,7 +6,7 @@ const doc = {
       description: 'CSE 341 Routes',
    },
    host: 'cse341-yxee.onrender.com',
-   schemes: ['http', 'https'],
+   schemes: ['https'],
 };
 
 const outputFile = './swagger.json';

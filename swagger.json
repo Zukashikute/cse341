@@ -7,10 +7,7 @@
   },
   "host": "cse341-yxee.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/api-docs": {
       "get": {
@@ -45,9 +42,7 @@
     "/contacts/": {
       "get": {
         "description": "Getting all contacts from our database",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -95,9 +90,7 @@
     "/contacts/{id}": {
       "get": {
         "description": "Getting a single contact from our database using id",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
