@@ -39,60 +39,76 @@ const getSingle = async (req, res, next) => {
 // POST Request Controllers (Create)
 const createContact = async (req, res) => {
    // #swagger.description = 'Creating a single contact to our database'
-   const contact = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      birthday: req.body.birthday,
-   };
+   try {
+      const contact = {
+         firstName: req.body.firstName,
+         lastName: req.body.lastName,
+         email: req.body.email,
+         favoriteColor: req.body.favoriteColor,
+         birthday: req.body.birthday,
+      };
 
-   const response = await mongodb
-      .getDb()
-      .db()
-      .collection('contacts')
-      .insertOne(contact);
+      const response = await mongodb
+         .getDb()
+         .db()
+         .collection('contacts')
+         .insertOne(contact);
 
-   if (response.acknowledged) {
-      return res.status(201).json(response);
-   } else {
-      return res.status(500).json(response.error || 'Error occurred while creating the contact.');
+      if (response.acknowledged) {
+         return res.status(201).json(response);
+      } else {
+         return res.status(500).json(response.error || 'Error occurred while creating the contact.');
+      }
+   } catch (err) {
+      res.status(500).json(err);
    }
+
 }
 
 // PUT Request Controllers (Update)
 const updateContact = async (req, res) => {
    // #swagger.description = 'Updating a single contact to our database'
-   const userId = new ObjectId(req.params.id)
-   const contact = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      birthday: req.body.birthday,
+   try {
+      const userId = new ObjectId(req.params.id)
+      const contact = {
+         firstName: req.body.firstName,
+         lastName: req.body.lastName,
+         email: req.body.email,
+         favoriteColor: req.body.favoriteColor,
+         birthday: req.body.birthday,
+      }
+
+      const response = await mongodb.getDb().db().collection('contacts').replaceOne({ _id: userId }, contact);
+
+      if (response.modifiedCount > 0) {
+         return res.status(204).send();
+      } else {
+         return res.status(500).json(response.error || 'Some error occurred while updating the contact.');
+      }
+   }
+   catch (err) {
+      res.status(500).json(err);
    }
 
-   const response = await mongodb.getDb().db().collection('contacts').replaceOne({ _id: userId }, contact);
-
-   if (response.modifiedCount > 0) {
-      return res.status(204).send();
-   } else {
-      return res.status(500).json(response.error || 'Some error occurred while updating the contact.');
-   }
 }
 
 // DELETE Request Controllers (Delete)
 const deleteContact = async (req, res) => {
    // #swagger.description = 'Deleting a single contact to our database'
-   const userId = new ObjectId(req.params.id)
+   try {
+      const userId = new ObjectId(req.params.id)
 
-   const response = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: userId }, true);
+      const response = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: userId }, true);
 
-   if (response.deletedCount > 0) {
-      return res.status(200).send();
-   } else {
-      return res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+      if (response.deletedCount > 0) {
+         return res.status(200).send();
+      } else {
+         return res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+      }
+   } catch (err) {
+      res.status(500).json(err)
    }
+
 }
 
 module.exports = { createContact, getAll, getSingle, updateContact, deleteContact };
